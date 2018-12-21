@@ -1,6 +1,8 @@
 package com.osm.guru.reactive.cassandra.reactivecassandra.repositories;
 
-import com.osm.guru.reactive.cassandra.reactivecassandra.models.WebPage;
+import com.osm.guru.reactive.cassandra.reactivecassandra.models.webpages.WebPage;
+import com.osm.guru.reactive.cassandra.reactivecassandra.services.CassandraOperationService;
+import org.joda.time.DateTime;
 import org.jsoup.Connection;
 import org.jsoup.Jsoup;
 import org.junit.Before;
@@ -11,31 +13,30 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import java.io.IOException;
+import java.math.BigInteger;
 import java.util.ArrayList;
-
-import static org.junit.Assert.*;
 
 @SpringBootTest
 @RunWith(SpringRunner.class)
 public class WebPageRepositoryTest {
-    @Autowired private WebPageRepository webPageRepository;
-    private WebPage webPage;
+    @Autowired private CassandraOperationService cassandraOperationService;
+    private WebPage webPage = new WebPage();
 
     @Before
     public void setUp() throws Exception {
-
-        this.webPage = new WebPage();
-        this.webPage.setAccountId("1-2-3");
-        this.webPage.setClientId("0");
-        this.webPage.setWebSite("https://www.1-2-3.com/fr/");
-        this.webPage.setUrl("https://www.1-2-3.com/fr/robes/");
-        Connection.Response response =  getStatusAndHtml(this.webPage.getUrl());
-        this.webPage.setParentUrl(null);
-        this.webPage.setHtml(response.body());
-        this.webPage.setHtmlHash(this.webPage.getHtml().hashCode());
-        this.webPage.setInnerLinks(new ArrayList<>());
-        this.webPage.setOrphan(false);
-        this.webPage.setStatus(response.statusCode());
+        webPage.setAccountId("legrand");
+        webPage.setDateScan( new DateTime(2018, 12, 20, 0, 0).toDate());
+        webPage.setClientId(0);
+        webPage.setWebSite("https://www.1-2-3.com/fr/");
+        webPage.setUrl("https://www.1-2-3.com/fr/tailleurs/");
+        Connection.Response response =  getStatusAndHtml(webPage.getUrl());
+        webPage.setHtml(response.body());
+        webPage.setHtmlHash(BigInteger.valueOf(webPage.getHtml().hashCode()));
+        webPage.setInnerLinks(new ArrayList<>());
+        webPage.setOrphan(false);
+        webPage.setValid(false);
+        webPage.setStatus(404);
+        System.out.println("saving : " +webPage);
     }
 
     private Connection.Response getStatusAndHtml(String url){
@@ -53,6 +54,6 @@ public class WebPageRepositoryTest {
 
     @Test
     public void saveTest(){
-        webPageRepository.save(webPage);
+        cassandraOperationService.save(webPage);
     }
 }
