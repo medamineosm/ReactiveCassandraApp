@@ -26,7 +26,6 @@ public class WebPageRepositoryTest {
     public void setUp() throws Exception {
         webPage.setAccountId("legrand");
         webPage.setDateScan( new DateTime(2018, 12, 20, 0, 0).toDate());
-        webPage.setClientId(0);
         webPage.setWebSite("https://www.1-2-3.com/fr/");
         webPage.setUrl("https://www.1-2-3.com/fr/tailleurs/");
         Connection.Response response =  getStatusAndHtml(webPage.getUrl());
@@ -56,4 +55,10 @@ public class WebPageRepositoryTest {
     public void saveTest(){
         cassandraOperationService.save(webPage);
     }
+
+    /*
+    public void findAll(){
+        cassandraOperationService.findByStatus(new WebPageByStatus.Key("", "", "", "", 200));
+    }
+    */
 }

@@ -11,7 +11,6 @@ import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 
@@ -20,8 +19,6 @@ import java.io.IOException;
 import java.math.BigInteger;
 import java.util.ArrayList;
 import java.util.Date;
-
-import static org.junit.Assert.*;
 @SpringBootTest
 @RunWith(SpringRunner.class)
 @Slf4j
@@ -32,12 +29,13 @@ public class CassandraOperationServiceTest {
 
     @Before
     public void setUp() throws Exception {
+
         FileUtils
-                //.readLines(new File(testDataEtam), "UTF-8")
-                .readLines(new File(testData123), "UTF-8")
+                .readLines(new File(testDataEtam), "UTF-8")
+                //.readLines(new File(testData123), "UTF-8")
                 .parallelStream()
-                //.map(url -> buidlWebPage(0, "1-2-3", "https://www.etam.com/", url, new DateTime(2018, 12, 21, 0, 0).toDate()))
-                .map(url -> buidlWebPage(0, "1-2-3", "https://www.1-2-3.com/fr/", url, new DateTime(2018, 12, 21, 0, 0).toDate()))
+                .map(url -> buidlWebPage(0, "1-2-3", "https://www.etam.com/", url, new DateTime(2019, 1, 16, 0, 0).toDate()))
+                //.map(url -> buidlWebPage(0, "1-2-3", "https://www.1-2-3.com/fr/", url, new DateTime(2018, 12, 21, 0, 0).toDate()))
                 .forEach(webPage -> cassandraReadOperationService.save(webPage));
 
     }
@@ -46,7 +44,6 @@ public class CassandraOperationServiceTest {
         WebPage webPage = new WebPage();
         webPage.setAccountId(accountId);
         webPage.setDateScan(dateScan);
-        webPage.setClientId(clientId);
         webPage.setWebSite(website);
         webPage.setUrl(url);
         Connection.Response response =  getStatusAndHtml(webPage.getUrl());
@@ -76,9 +73,22 @@ public class CassandraOperationServiceTest {
 
     @Test
     public void findAllWebPageByScanDate() {
+        String url ="https://www.etam.com/lingerie-de-nuit/tous-les-bas-de-pyjamas/shorts-pantacourts/short-imprime-requins-649309770.html";
+        /*
+        * cassandraReadOperationService
+                .findByStatus(new WebPageByStatus.Key(
+                        "1-2-3",
+                        "https://www.etam.com/",
+                        new DateTime(2018, 12, 22, 0, 0).toDate(),
+                        200))
+                .collectList()
+                .block()
+                .parallelStream()
+                .forEach(System.out::println);
+        * */
     }
 
-    @Ignore
+    //@Ignore
     @Test
     public void findOneByScanDateAndUrl() {
     }

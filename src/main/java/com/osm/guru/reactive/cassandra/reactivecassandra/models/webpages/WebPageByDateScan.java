@@ -37,6 +37,8 @@ public class WebPageByDateScan extends AbstractWebPage implements QueryImplement
     @Column
     private boolean isOrphan;
     @Column
+    private String origin;
+    @Column
     private List<String> innerLinks;
 
     @Override
@@ -55,7 +57,6 @@ public class WebPageByDateScan extends AbstractWebPage implements QueryImplement
     @Override
     protected WebPage getWebPageWithAttribute() {
         WebPage webPage = new WebPage();
-        webPage.setClientId(this.key.clientId);
         webPage.setAccountId(this.key.accountId);
         webPage.setWebSite(this.key.webSite);
         webPage.setDateScan(this.key.dateScan);
@@ -67,15 +68,13 @@ public class WebPageByDateScan extends AbstractWebPage implements QueryImplement
     @NoArgsConstructor
     @PrimaryKeyClass
     public static class Key{
-        @PrimaryKeyColumn(name = "clientid", ordinal = 0, type = PrimaryKeyType.CLUSTERED, ordering = Ordering.DESCENDING)
-        public int clientId;
-        @PrimaryKeyColumn(name = "accountid", ordinal = 1, type = PrimaryKeyType.CLUSTERED, ordering = Ordering.DESCENDING)
+        @PrimaryKeyColumn(name = "accountid", ordinal = 0, type = PrimaryKeyType.CLUSTERED, ordering = Ordering.DESCENDING)
         public String accountId;
-        @PrimaryKeyColumn(name = "website", ordinal = 2, type = PrimaryKeyType.CLUSTERED, ordering = Ordering.DESCENDING)
+        @PrimaryKeyColumn(name = "website", ordinal = 1, type = PrimaryKeyType.CLUSTERED, ordering = Ordering.DESCENDING)
         public String webSite;
-        @PrimaryKeyColumn(name = "datescan", ordinal = 3, type = PrimaryKeyType.PARTITIONED)
+        @PrimaryKeyColumn(name = "datescan", ordinal = 2, type = PrimaryKeyType.PARTITIONED)
         public Date dateScan;
-        @PrimaryKeyColumn(name = "url", ordinal = 4, type = PrimaryKeyType.PARTITIONED)
+        @PrimaryKeyColumn(name = "url", ordinal = 3, type = PrimaryKeyType.PARTITIONED)
         private String url;
     }
 

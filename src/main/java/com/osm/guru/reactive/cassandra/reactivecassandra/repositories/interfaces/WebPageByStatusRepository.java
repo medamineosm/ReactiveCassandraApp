@@ -10,8 +10,8 @@ import reactor.core.publisher.Flux;
 @Repository
 public interface WebPageByStatusRepository extends ReactiveCassandraRepository<WebPageByStatus, WebPageByStatus.Key> {
 
-    @Query("select * FROM webpage_by_status WHERE clientid= :#{#key.clientId} " +
-            "AND accountid=:#{#key.accountId} " +
+    @Query("select * FROM webpage_by_status WHERE" +
+            " accountid=:#{#key.accountId} " +
             "AND website=:#{#key.webSite} " +
             "AND datescan=:#{#key.dateScan} " +
             "AND status=:#{#key.status}")

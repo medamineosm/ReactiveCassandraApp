@@ -20,7 +20,7 @@ public class ConverterService implements ConverterInterface{
     public <T> T toByAppropriatePojo(WebPage webPage, Class<T> clazz) {
         if(clazz.equals(WebPageByDateScan.class)){
             WebPageByDateScan webPageByDateScan = new WebPageByDateScan();
-            webPageByDateScan.setKey(new WebPageByDateScan.Key(webPage.getClientId(), webPage.getAccountId(), webPage.getWebSite(), webPage.getDateScan(), webPage.getUrl()));
+            webPageByDateScan.setKey(new WebPageByDateScan.Key(webPage.getAccountId(), webPage.getWebSite(), webPage.getDateScan(), webPage.getUrl()));
             webPageByDateScan.setHtml(webPage.getHtml());
             webPageByDateScan.setHtmlHash(webPage.getHtmlHash());
             webPageByDateScan.setInnerLinks(webPage.getInnerLinks());
@@ -30,7 +30,7 @@ public class ConverterService implements ConverterInterface{
             return (T) webPageByDateScan;
         }else if(clazz.equals(WebPageByStatus.class)){
             WebPageByStatus webPageByStatus = new WebPageByStatus();
-            webPageByStatus.setKey(new WebPageByStatus.Key(webPage.getClientId(), webPage.getAccountId(), webPage.getWebSite(), webPage.getDateScan(), webPage.getStatus()));
+            webPageByStatus.setKey(new WebPageByStatus.Key(webPage.getAccountId(), webPage.getWebSite(), webPage.getDateScan(), webPage.getStatus()));
             webPageByStatus.setUrl(webPage.getUrl());
             webPageByStatus.setHtml(webPage.getHtml());
             webPageByStatus.setHtmlHash(webPage.getHtmlHash());

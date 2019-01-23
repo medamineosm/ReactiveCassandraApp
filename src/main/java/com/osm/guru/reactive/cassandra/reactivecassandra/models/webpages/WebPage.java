@@ -19,36 +19,35 @@ import java.util.List;
 @NoArgsConstructor
 @Data
 public class WebPage {
-    @PrimaryKeyColumn(name = "clientid", ordinal = 0, type = PrimaryKeyType.CLUSTERED, ordering = Ordering.DESCENDING)
-    private int clientId;
-    @PrimaryKeyColumn(name = "website", ordinal = 1, type = PrimaryKeyType.PARTITIONED)
-    private String webSite;
+    @PrimaryKeyColumn(name = "website", ordinal = 0, type = PrimaryKeyType.CLUSTERED, ordering = Ordering.DESCENDING)
+    protected String webSite;
     @Column
-    private Date dateScan;
+    protected Date dateScan;
     @Column
-    private String accountId;
+    protected String accountId;
     @Column
-    private String url;
+    protected String url;
     @Column
-    private String redirectedUrl;
+    protected String redirectedUrl;
     @Column
-    private int level;
+    protected int level;
     @Column
-    private boolean isValid;
+    protected boolean isValid;
     @Column
-    private int status;
+    protected int status;
     @Column
-    private String html;
+    protected String html;
     @Column
-    private BigInteger htmlHash;
+    protected BigInteger htmlHash;
     @Column
-    private boolean isOrphan;
+    protected boolean isOrphan;
     @Column
-    private List<String> innerLinks;
+    protected String origin;
+    @Column
+    protected List<String> innerLinks;
     @Override
     public String toString() {
         return "WebPage{" +
-                "clientId=" + clientId +
                 ", webSite='" + webSite + '\'' +
                 ", dateScan=" + dateScan +
                 ", accountId='" + accountId + '\'' +

@@ -32,7 +32,7 @@ public class WebPageByDateScanRepositoryImpl extends AbstractWebPageDao {
     }
 
     public Flux<WebPage> findAllByScanDate(WebPageByDateScan.Key key){
-        return null;
+        return webPageByDateScanRepository.findAll(key).map(WebPageByDateScan::toWebPage);
     }
 
     public Mono<WebPage> findOneByScanDateAndUrl(WebPageByDateScan.Key key){

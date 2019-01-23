@@ -25,20 +25,19 @@ public class TestController {
     @GetMapping("/")
     public void test(){
         try {
-            cassandraOperationService.save(setUp("legrand", 0, "https://www.legrand.fr/", "https://www.legrand.fr/"));
-            cassandraOperationService.save(setUp("legrand", 0, "https://www.legrand.fr/", "https://www.legrand.fr/catalogue/interrupteurs-et-prises/interrupteur"));
-            cassandraOperationService.save(setUp("legrand", 0, "https://www.legrand.fr/", "https://www.legrand.fr/catalogue/interrupteurs-et-prises/interrupteur/amine"));
-            cassandraOperationService.save(setUp("1-2-3", 1, "https://www.1-2-3.com/fr/", "https://www.1-2-3.com/fr/robes/"));
+            cassandraOperationService.save(setUp("legrand", "https://www.legrand.fr/", "https://www.legrand.fr/"));
+            cassandraOperationService.save(setUp("legrand", "https://www.legrand.fr/", "https://www.legrand.fr/catalogue/interrupteurs-et-prises/interrupteur"));
+            cassandraOperationService.save(setUp("legrand", "https://www.legrand.fr/", "https://www.legrand.fr/catalogue/interrupteurs-et-prises/interrupteur/amine"));
+            cassandraOperationService.save(setUp("1-2-3", "https://www.1-2-3.com/fr/", "https://www.1-2-3.com/fr/robes/"));
         } catch (Exception e) {
             e.printStackTrace();
         }
     }
 
-    public WebPage setUp(String accountId, int clientId, String website,String url) throws Exception {
+    public WebPage setUp(String accountId, String website,String url) throws Exception {
         WebPage webPage = new WebPage();
         webPage.setAccountId(accountId);
-        webPage.setDateScan( new DateTime(2018, 12, 20, 0, 0).toDate());
-        webPage.setClientId(clientId);
+        webPage.setDateScan(new DateTime().toDate());
         webPage.setWebSite(website);
         webPage.setUrl(url);
         Connection.Response response =  getStatusAndHtml(webPage.getUrl());
